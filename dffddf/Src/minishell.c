@@ -1,80 +1,44 @@
 #include "../Inc/minishell.h"
 
-
-// void print_info()
-// {
-//     char dir[100];
-
-//     getcwd(dir, 100);
-//     printf ("%s >",dir);
-// }
-
-// void sigHandler(int sig)
-// {
-//         if (sig == SIGINT)
-//             exit(0);
-// }
-
-
-// int main(int argc, char **argv, char **envv)
-// {
-//     (void)argv;
-//     if (argc == 1)
-//     {
-//         init_envv(envv);
-//         while (1)
-//         {
-//             print_info();
-//             signal(SIGINT, sigHandler);
-//         }
-//     }
-//     ft_error(1);
-//     return (0);
-// }
-
-
-#include <signal.h>
-#include <stdio.h>
-#include <readline/readline.h>
-#include <readline/history.h>
-#include <unistd.h>
-#include <stdlib.h>
-
-void handler(int signum)
+int main(int argc, char **argv, char **envv)
 {
-    if (signum != SIGINT)
-        return;
-
-    rl_on_new_line();
-    rl_replace_line("", 0);
-    rl_redisplay();
-    printf("ctrl + c pressed\n");	// for DEBUG
-    printf("\n");
-}
-
-int main(void)
-{
-    int ret;
+    (void)argv;
     char *line;
+    t_list *env_list;
+    int pid;
+    int status;
 
-    signal(SIGINT, handler);
-    while (1)
+    if (argc == 1)
     {
-        line = readline("users/kyujlee> ");
-		printf("READLINE COMPLETE\n");
-        if (line)
+        print_intro();
+        env_list = parse_envv(envv);
+        sigHandler();
+        while (1)
         {
-            if (ret)
-                printf("output> %s\n", line);
-            add_history(line);
-            free(line);
-            line = NULL;
-        }
-        else
-        {
-            printf("ctrl + d\n");
+            read_line(env_list, line, envv);
+            //line에 들어있는 문자열 파싱하는 함수
+            //-----------------------------------내 역할 끝??
+            //파싱한 자료구조(이진트리 예상)에서 빌트인 처리, 리디렉션 처리
+            //리스트로 할 수 있는데 이진트리가 탐색하기 쉬움 (정확히는 재귀하향트리)
+
+            // pid = fork();
+            // if (pid == 0)    /* child process */
+            // {
+            //     // exec
+            //     execve(command, arg);
+            // }
+            // else if (pid > 0) /* parent process */
+            // {
+            //     // wait
+            //     pid = wait(NULL);
+            // }
+            // else {   // pid minus.... what happend..?
+
+            // }
         }
     }
+    delete_list(env_list);
+    ft_error(1);
     return (0);
 }
 // gcc minishell.c -lreadline -L/Users/gshim/.brew/opt/readline/lib -I/Users/gshim/.brew/opt/readline/include
