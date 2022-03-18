@@ -6,7 +6,7 @@
 #    By: gshim <gshim@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/22 17:48:50 by gshim             #+#    #+#              #
-#    Updated: 2022/03/15 18:04:38 by gshim            ###   ########.fr        #
+#    Updated: 2022/03/16 17:31:26 by gshim            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 NAME = minishell
 
 SRCS_DIR = ./src
-SRCS = src/readline.c
+SRCS = src/main.c
 OBJS = $(SRCS:.c=.o)
 
 #======================= 외부라이브러리 모음 ==========================

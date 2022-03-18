@@ -44,10 +44,12 @@ void handler(int signum)
 {
     if (signum != SIGINT)
         return;
-    printf("ctrl + c\n");
+
     rl_on_new_line();
     rl_replace_line("", 0);
     rl_redisplay();
+    printf("ctrl + c pressed\n");	// for DEBUG
+    printf("\n");
 }
 
 int main(void)
@@ -59,6 +61,7 @@ int main(void)
     while (1)
     {
         line = readline("users/kyujlee> ");
+		printf("READLINE COMPLETE\n");
         if (line)
         {
             if (ret)
@@ -74,3 +77,14 @@ int main(void)
     }
     return (0);
 }
+// gcc minishell.c -lreadline -L/Users/gshim/.brew/opt/readline/lib -I/Users/gshim/.brew/opt/readline/include
+
+
+/*
+ctrl c 연속시 정상작똥
+다른 입력 후 ctrl c 시 첫번째 동작x
+aa -> ctrl c
+
+printf -> redisplay => printf가 프롬프트를 덮어쓰고있음
+redisplay -> printf => 프롬프트 뒤에 printf가 나옴
+*/
