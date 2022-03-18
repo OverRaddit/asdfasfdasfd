@@ -29,7 +29,6 @@ void parse_line(char *line, char **envv)
     }
     else{
 		execute(arg[0], arg, envv);
-
     }
 }
 
