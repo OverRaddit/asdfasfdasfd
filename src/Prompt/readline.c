@@ -1,4 +1,4 @@
-#include "../../Inc/minishell.h"
+#include "../minishell.h"
 
 void parse_line(char *line, char **envv)
 {
@@ -18,17 +18,20 @@ void parse_line(char *line, char **envv)
     }
     arg[argv] = (char *)0;
 
+    // [DEBUG]실행인자
     for(int i=0;i<argv;i++){
         printf("[%d]%s\n", i, arg[i]);
     }
 
-    if (strcmp(arg[0], "quit") == 0) exit(1); // libft로 대체할것
+
+    if (ft_strncmp(arg[0], "exit", 4) == 0) exit(1); // exit명령 처리
     if ((pid = fork()) == -1) printf("FORK ERROR\n");
     else if (pid != 0){
         pid = wait(NULL);
     }
     else{
 		execute(arg[0], arg, envv);
+        printf("AFTER execute\n");
     }
 }
 

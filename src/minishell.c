@@ -1,4 +1,3 @@
-#include "../Inc/minishell.h"
 #include "minishell.h"
 
 int main(int argc, char **argv, char **envv)
@@ -6,13 +5,15 @@ int main(int argc, char **argv, char **envv)
     (void)argv;
     char *line;
     t_list *env_list;
-    int pid;
-    int status;
-
+    //int pid;
+    //int status;
+    env_list = NULL;
+    line = NULL;
     if (argc == 1)
     {
         print_intro();
         env_list = parse_envv(envv);
+        displayDoublyList(env_list);
         sigHandler();
         while (1)
         {

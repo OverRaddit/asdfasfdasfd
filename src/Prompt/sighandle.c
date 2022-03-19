@@ -1,7 +1,8 @@
-#include "../../Inc/minishell.h"
+#include "../minishell.h"
 
 void sig_int(int sig)
 {
+	(void)sig;
     rl_on_new_line();
 	printf("\n");
 	rl_on_new_line();

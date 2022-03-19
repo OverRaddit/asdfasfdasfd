@@ -1,4 +1,4 @@
-#include "../../Inc/minishell.h"
+#include "../minishell.h"
 
 t_list	*create_list(void)
 {

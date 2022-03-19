@@ -1,4 +1,4 @@
-#include "../../Inc/minishell.h"
+#include "../minishell.h"
 
 void add_node(t_list* list, int position, char *var, char *data){
     //int i = -1;
@@ -10,6 +10,7 @@ void add_node(t_list* list, int position, char *var, char *data){
         new_node = (t_list_node *)malloc(sizeof(t_list_node));
         new_node->var = var;
         new_node->data = data;
+        new_node->next = NULL;
         pre_node = get_node(list, position);
         if (pre_node->next)
             next_node = pre_node->next;

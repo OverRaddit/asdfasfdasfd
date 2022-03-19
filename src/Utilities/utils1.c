@@ -1,4 +1,4 @@
-#include "../../Inc/minishell.h"
+#include "../minishell.h"
 
 void ft_error(int flag)
 {
@@ -16,7 +16,7 @@ char	*ft_strndup(const char *src, int from, int to)
 	if (!str)
 		return (0);
 	i = 0;
-	while (i <= to)
+	while (from <= to)
     {
 		str[i] = src[from];
         i++;

@@ -3,46 +3,47 @@
 int execute(char *command, char **arg, char **env)
 {
 	if (ft_strncmp("echo", command, 4) == 0)
-		echo(arg, env);
+		ft_echo(arg, env);
 	else if (ft_strncmp("cd", command, 2) == 0)
-		cd(arg, env);
+		ft_cd(arg, env);
 	else if (ft_strncmp("pwd", command, 3) == 0)
-		pwd(env);
+		ft_pwd(env);
 	else if (ft_strncmp("export", command, 6) == 0)
-		export(env);
+		ft_export(env);
 	else if (ft_strncmp("unset", command, 5) == 0)
-		unset();
+		ft_unset(env);
 	else if (ft_strncmp("env", command, 3) == 0)
-		env(env);
-	else if (ft_strncmp("exit", command, 4) == 0)
-		exit();
+		ft_env(env);
 	else
 	{
-		char * filepath = ft_strjoin("/bin/", arg[0]);
+		char *filepath = ft_strjoin("/bin/", arg[0]);
         execve(filepath, arg, env);
 		// 이 밑이 어떻게 실행되는걸까....!!
+		// quit이 arg[0]일때, 즉 해당명령을 찾지 못했다면 수행된다.
+		// 이곳은 명령어가 없다는 에러문을 출력하기 좋을 것 같다.
+		printf("AFTER EXEC\n");
+		// 지역변수를 사용하는게 좋을듯 하다.
         free(filepath);
 	}
+	exit(1);
 }
 
 // -n
-void echo(char *argv[], char **env)
+void ft_echo(char *argv[], char **env)
 {
-	int i;
-
-	i = 0;
-	while (str[i] != '\0')
-	{
-
-	}
+	(void)argv;
+	(void)env;
+	printf("ECHO\n");
 }
 
 // arg : dir
-void cd(char *argv[], char **env)
+void ft_cd(char *argv[], char **env)
 {
 	int i;
 	char **s;
 	char dir[512];
+
+	(void)env;
 
 	// 디렉토리 변경 -> 부모프로세스에서 변경적용이 안될듯
 	// 				 환경변수 **env는 변경가능.
@@ -65,23 +66,29 @@ void cd(char *argv[], char **env)
 
 }
 
-void pwd()
+void ft_pwd()
 {
-	printf("%s", getenv("HOME"));
+	char dir[512];
+
+	printf("[PWD]\n");
+	getcwd(dir, 512);
+	printf("%s\n", dir);
 }
 
 
-void export(char **env)
+void ft_export(char **env)
 {
-
+	(void)env;
+	printf("EXPORT\n");
 }
 
-void unset(char **env)
+void ft_unset(char **env)
 {
-
+	(void)env;
+	printf("UNSET\n");
 }
 
-void env(char **env)
+void ft_env(char **env)
 {
 	t_list *env_list;
 
@@ -89,7 +96,7 @@ void env(char **env)
 	displayDoublyList(env_list);
 }
 
-void exit(char **env)
-{
+// void exit(char **env)
+// {
 
-}
+// }

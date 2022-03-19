@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gshim <gshim@student.42.fr>                +#+  +:+       +#+         #
+#    By: gshim <gshim@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/22 17:48:50 by gshim             #+#    #+#              #
-#    Updated: 2022/03/18 22:15:32 by gshim            ###   ########.fr        #
+#    Updated: 2022/03/19 13:01:43 by gshim            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,9 +19,9 @@ NAME = minishell
 SRCS_DIR = ./src
 SRCS =  src/DataStructure/linkedlist1.c src/DataStructure/linkedlist2.c \
 	src/Parsing/parse_envv.c \
-	src/Prompt/readline.c src/Prompt/sighandle.c \
 	src/Utilities/utils1.c src/Utilities/utils2.c \
-	src/minishell.c src/builtIn.c
+	src/minishell.c src/builtIn.c \
+	src/Prompt/readline.c src/Prompt/sighandle.c
 OBJS = $(SRCS:.c=.o)
 
 #======================= 외부라이브러리 모음 ==========================
@@ -32,13 +32,15 @@ LIB = $(addprefix $(LIB_DIR)/, libft.a)
 #=================================================================
 
 $(NAME) : $(OBJS)
-	$(MAKE) -C $(LIB_DIR) bonus
+	$(MAKE) -C $(LIB_DIR) all
 	$(CC) $(CFLAGS) -L$(LIB_DIR) -l$(LIB_NAME) \
-	-lreadline -L/Users/gshim/.brew/opt/readline/lib \
-	-I/Users/gshim/.brew/opt/readline/include $^ -o $@
+	-lreadline -L/opt/homebrew/opt/readline/lib $^ -o $@
+#libft list 중복이라 bonus로 컴파일 안함
+#my mac #-L/opt/homebrew/opt/readline/lib -I/opt/homebrew/opt/readline/include
+#cluster#-lreadline -L/Users/gshim/.brew/opt/readline/lib -I/Users/gshim/.brew/opt/readline/include $^ -o $@
 
 $(SRCS_DIR)/%.o : $(SRCS_DIR)/%.c
-	$(CC) $(CFLAGS) -I$(LIB_DIR) -c $< -o $@
+	$(CC) $(CFLAGS) -I$(LIB_DIR) -I/opt/homebrew/opt/readline/include -c $< -o $@
 
 all : $(NAME)
 

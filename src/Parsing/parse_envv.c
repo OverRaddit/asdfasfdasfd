@@ -1,4 +1,4 @@
-#include "../../Inc/minishell.h"
+#include "../minishell.h"
 
 t_list *parse_envv(char **envv)
 {
@@ -8,7 +8,7 @@ t_list *parse_envv(char **envv)
     int i;
     int j;
     int tmp;
-    
+
     i = -1;
     list = create_list();
     while (envv[++i])
